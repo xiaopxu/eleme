@@ -22,6 +22,7 @@
 </template>
 
 <script>
+//更新注释
   export default {
     name: 'hello',
     data () {
