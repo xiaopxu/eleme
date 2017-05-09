@@ -5,6 +5,7 @@
 * 脚手架：webpack
 * 前端语言：Es6
 * 前端框架：Vue2.0
+* UI框架：elememt
 * 后端语言：NodeJs
 * 后端框架：Express
 * 数据库：MongoDB
@@ -28,6 +29,7 @@
 * assets：图片文件
 * components：公用组件
 * pages：页面组件
+* providers：公用服务
 * router：路由
 * 前端入口文件：src/main.js
 ---
