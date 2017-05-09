@@ -10,6 +10,25 @@
             <a href="javascript:void(0)">手机中心</a>
             <a href="javascript:void(0)">规则中心</a>
             <a href="javascript:void(0)">手机应用</a>
+    
+            <el-dropdown class="top-nav-user">
+                <span class="el-dropdown-link">
+                    {{nickName}}
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item class="dropdown-item">
+                        <i class="el-icon-arrow-down"></i>个人中心</el-dropdown-item>
+                    <el-dropdown-item class="dropdown-item">
+                        <i class="el-icon-star-on"></i>我的收藏</el-dropdown-item>
+                    <el-dropdown-item class="dropdown-item">
+                        <i class="el-icon-arrow-down"></i>我的地址</el-dropdown-item>
+                    <el-dropdown-item class="dropdown-item">
+                        <i class="el-icon-arrow-down"></i>安全设置</el-dropdown-item>
+                    <el-dropdown-item class="dropdown-item" divided>
+                        <i class="el-icon-setting"></i>退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </div>
     </div>
 </template>
@@ -18,11 +37,23 @@ export default {
     name: "header",
     data() {
         return {
-            logo: '饿了么'
+            logo: "饿了么",
+            nickName: ""
         }
     },
     mounted() {
         console.log("mounted")
+        //请求用户数据
+        let param = {
+            url: 'api/getUserInfo',
+            params: {
+                sex: "1"
+            }
+        }
+        this.$http.post(param.url, param.params)
+            .then(res => {
+                this.nickName = res.body.data.nickName;
+            })
     },
     methods: {
         goPage(page) {
@@ -36,11 +67,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import url('./../../static/css/main');
+@import url('./../../static/css/theme');
 #header {
     background-color: @blue;
     height: 60px;
     overflow: hidden;
+    padding: 0 20px;
     .logo {
         float: left;
         color: #fff;
@@ -54,6 +86,7 @@ export default {
     }
     .top-nav {
         overflow: hidden;
+        padding: 0 10px;
         a {
             display: block;
             width: 112px;
@@ -63,6 +96,25 @@ export default {
             text-align: center;
             float: left;
         }
+        .top-nav-user {
+            float: left;
+            height: 60px;
+            line-height: 60px;
+            color: #fff;
+            margin-left: 100px;
+            cursor: pointer;
+            i {
+                padding-left: 10px;
+            }
+            .dropdown-item {
+                i {
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+    .top-nav-left {
+        float: left;
         a:hover {
             background-color: @blue-hover;
         }
@@ -70,12 +122,17 @@ export default {
             background-color: @blue-focus;
         }
     }
-    .top-nav-left {
-        float: left;
-    }
 
     .top-nav-right {
         float: right;
+        a {
+            color: #d2e7f9;
+            font-size: 14px;
+            width: 90px;
+        }
+        a:hover {
+            color: #fff;
+        }
     }
 }
 </style>
