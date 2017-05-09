@@ -15,8 +15,26 @@
 * 方法命名：小驼峰 getUserName
 * 类命名：大驼峰 UserInfo
 * 常量命名：大写+下划线 DEV_CONFIG
-
 * 页面pages：大驼峰 Index.vue
 * 组件components：小驼峰 header.vue
 
-## mongedb API
+## 结构
+
+### 开发环境
+
+* 项目入口入口文件：build/dev-server.js
+---
+* 前端目录：src
+* assets：图片文件
+* components：公用组件
+* pages：页面组件
+* router：路由
+* 前端入口文件：src/main.js
+---
+* 静态资源：static
+* css：公用样式
+---
+* 后端目录：serve
+* 后端入口文件：index.js
+* api.js：接口层
+
