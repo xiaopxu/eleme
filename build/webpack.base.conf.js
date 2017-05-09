@@ -54,8 +54,8 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        test: /\.less$/,
+        loaders: 'style!css!less'
       },
     ]
   }

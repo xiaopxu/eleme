@@ -16,4 +16,7 @@
 * 类命名：大驼峰 UserInfo
 * 常量命名：大写+下划线 DEV_CONFIG
 
+* 页面pages：大驼峰 Index.vue
+* 组件components：小驼峰 header.vue
+
 ## mongedb API
