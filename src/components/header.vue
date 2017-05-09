@@ -10,7 +10,7 @@
             <a href="javascript:void(0)">手机中心</a>
             <a href="javascript:void(0)">规则中心</a>
             <a href="javascript:void(0)">手机应用</a>
-    
+            <!--下拉菜单-->
             <el-dropdown class="top-nav-user">
                 <span class="el-dropdown-link">
                     {{nickName}}
@@ -33,6 +33,8 @@
     </div>
 </template>
 <script>
+import { Http } from './../providers/http.js'
+let http = new Http();
 export default {
     name: "header",
     data() {
@@ -50,10 +52,11 @@ export default {
                 sex: "1"
             }
         }
-        this.$http.post(param.url, param.params)
+        http.post(param)
             .then(res => {
-                this.nickName = res.body.data.nickName;
+                this.nickName = res.nickName;
             })
+            .catch(err => { })
     },
     methods: {
         goPage(page) {
