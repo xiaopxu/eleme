@@ -49,13 +49,23 @@ export default {
         let param = {
             url: 'api/getUserInfo',
             params: {
-                sex: "1"
+                uid: "1"
             }
         }
         http.post(param)
             .then(res => {
                 this.nickName = res.nickName;
             })
+            .catch(err => { })
+
+        let param2 = {
+            url: 'api/getStoreInfo',
+            params: {
+                storeId: "1"
+            }
+        }
+        http.post(param2)
+            .then(res => { })
             .catch(err => { })
     },
     methods: {

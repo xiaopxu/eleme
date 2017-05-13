@@ -1,7 +1,7 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 // 连接数据库
 // mongoose.connect('mongodb://localhost:27017/seeCodes')
-let DB_URL = 'mongodb://localhost:27017/Eleme'
+const DB_URL = 'mongodb://localhost:27017/Eleme'
 
 /**
  * 连接
@@ -28,15 +28,3 @@ mongoose.connection.on('error', (err) => {
 mongoose.connection.on('disconnected', () => {
   console.log('Mongoose connection disconnected')
 })
-
-var userSchema = new mongoose.Schema({
-  _id: String,
-  name: String,
-  sex: String
-})
-
-var Models = {
-  User: mongoose.model('user', userSchema)
-}
-
-module.exports = Models

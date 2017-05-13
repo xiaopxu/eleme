@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-
+let vue = new Vue()
 /**
  * @description 统一处理请求
  * 
@@ -20,19 +20,18 @@ export class Http {
    */
   post(param) {
     //打印日志
-    console.group("======================发起请求=========================")
+    console.warn("======================发起请求=========================")
     console.log("请求接口：" + param.url)
     console.log("请求参数：")
     console.log(param.params)
 
     //发起请求
     return new Promise((resolve, reject) => {
-      Vue.http.post(param.url, param.params)
+      vue.$http.post(param.url, param.params)
         //通讯成功
         .then(res => {
           console.log('响应参数：')
           console.log(res.body)
-          console.groupEnd();
 
           if (res.body.code == 200 && res.body.data != null) {
             resolve(res.body.data)
@@ -43,7 +42,14 @@ export class Http {
         })
         //通讯失败
         .catch(err => {
-          ElementUI.Message.error(err)
+          let errMsg = '';
+          console.log(err.status)
+          if (err.status >= 500) {
+            errMsg = '服务器响应错误'
+          } else {
+            errMsg = '客户端请求异常'
+          }
+          ElementUI.Message.error(errMsg)
           reject(err)
         })
     })
