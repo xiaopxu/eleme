@@ -26,7 +26,7 @@ export class Http {
     console.log(param.params)
 
     //发起请求
-    return new Promise((resolve, reject) => {
+    let promise = new Promise((resolve, reject) => {
       vue.$http.post(param.url, param.params)
         //通讯成功
         .then(res => {
@@ -53,10 +53,11 @@ export class Http {
           reject(err)
         })
     })
+
+    return promise
   }
+
   handleErr(err) {
     ElementUI.Message.error(err)
   }
 }
-
-
