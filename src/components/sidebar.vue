@@ -1,15 +1,13 @@
 <template>
     <div id="sidebar">
-        <el-row class="tac">
-            <el-col :span="4">
-                <div v-for="list in sidebarList" class="sidebar-box">
-                    <h2 :class="{canlink : list.path}" @click="goPage(list)">{{list.title}}</h2>
-                    <div v-for="child in list.children">
-                        <a @click="goPage(child)" :class="{active : activeTabTitle == child.title}">{{child.title}}</a>
-                    </div>
+        <el-col :span="4">
+            <div v-for="list in sidebarList" class="sidebar-box">
+                <h2 :class="{canlink : list.path}" @click="goPage(list)">{{list.title}}</h2>
+                <div v-for="child in list.children">
+                    <a @click="goPage(child)" :class="{active : activeTabTitle == child.title}">{{child.title}}</a>
                 </div>
-            </el-col>
-        </el-row>
+            </div>
+        </el-col>
     </div>
 </template>
 <script>
@@ -53,8 +51,8 @@ export default {
                         },
                         {
                             title: '退单记录',
-                            path: 'order/pending',
-                            icon: 'chargeback'
+                            path: 'order/chargeback',
+                            icon: ''
                         }
                     ]
                 },
@@ -64,18 +62,18 @@ export default {
                     children: [
                         {
                             title: '我的红包',
-                            path: 'order/nearby',
+                            path: 'order/redPacket',
                             icon: ''
                         },
                         {
                             title: '账户余额',
-                            path: 'order/pending',
+                            path: 'order/balance',
                             icon: ''
                         },
                         {
                             title: '我的积分',
-                            path: 'order/pending',
-                            icon: 'chargeback'
+                            path: 'order/integral',
+                            icon: ''
                         }
                     ]
                 },
@@ -85,23 +83,23 @@ export default {
                     children: [
                         {
                             title: '个人资料',
-                            path: 'order/nearby',
+                            path: 'order/personalData',
                             icon: ''
                         },
                         {
                             title: '地址管理',
-                            path: 'order/pending',
+                            path: 'order/AddressManagement',
                             icon: ''
                         },
                         {
                             title: '安全中心',
-                            path: 'order/pending',
+                            path: 'order/securityCenter',
                             icon: 'chargeback'
                         },
                         {
                             title: '修改密码',
-                            path: 'order/pending',
-                            icon: 'chargeback'
+                            path: 'order/changePassword',
+                            icon: ''
                         }
                     ]
                 },
