@@ -46,27 +46,27 @@ export default {
     mounted() {
         console.log("mounted")
         //请求用户数据
-        let param = {
-            url: 'api/getUserInfo',
-            params: {
-                uid: "1"
-            }
-        }
-        http.post(param)
-            .then(res => {
-                this.nickName = res.nickName;
-            })
-            .catch(err => { })
+        // let param = {
+        //     url: 'api/getUserInfo',
+        //     params: {
+        //         uid: "1"
+        //     }
+        // }
+        // http.post(param)
+        //     .then(res => {
+        //         this.nickName = res.nickName;
+        //     })
+        //     .catch(err => { })
 
-        let param2 = {
-            url: 'api/getStoreInfo',
-            params: {
-                storeId: "1"
-            }
-        }
-        http.post(param2)
-            .then(res => { })
-            .catch(err => { })
+        // let param2 = {
+        //     url: 'api/getStoreInfo',
+        //     params: {
+        //         storeId: "1"
+        //     }
+        // }
+        // http.post(param2)
+        // .then(res => { })
+        // .catch(err => { })
     },
     methods: {
         goPage(page) {
