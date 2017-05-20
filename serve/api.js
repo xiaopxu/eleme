@@ -4,9 +4,10 @@ const db = require('./db')
 const model = require('./model')
 
 //请求用户信息
-router.post('/api/getUserInfo', (req, res) => {
+router.post('/api/login', (req, res) => {
   let param = {
-    uid: req.body.uid
+    userName: req.body.userName,
+    userPwd: req.body.userPwd
   }
   model.AppUser.findOne(param, (err, data) => {
     console.log(data)
@@ -14,25 +15,34 @@ router.post('/api/getUserInfo', (req, res) => {
       res.json({
         code: "400",
         data: {},
-        message: "请求数据失败"
+        message: "登陆失败"
       })
     } else {
-      res.json({
-        code: "200",
-        data: data,
-        message: "请求数据成功"
-      })
+      if (data.userPwd === param.userPwd) {
+        res.json({
+          code: "200",
+          data: data,
+          message: "登陆成功"
+        })
+      } else {
+        res.json({
+          code: "400",
+          data: {},
+          message: "用户名或密码错误"
+        })
+      }
+
     }
   })
 })
 
 router.post('/api/getStoreInfo', (req, res) => {
   let param = {
-    storeId: req.body.storeId
+    // storeId: req.body.storeId
   }
-  model.partnerStore.findOne(param, (err, data) => {
+  model.partnerStore.find(param, (err, data) => {
     console.log(data)
-    if (err) {
+    if (err || data === null || (Array.isArray(data) && data.length === 0)) {
       res.json({
         code: "400",
         data: {},
