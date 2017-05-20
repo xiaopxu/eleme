@@ -41,21 +41,24 @@ router.post('/api/getStoreInfo', (req, res) => {
     pageNumber: req.body.pageNumber || 0
   }
 
-  model.partnerStore.find().skip(param.pageSize * param.pageNumber).limit(param.pageSize).exec((err, data) => {
-    if (err || data === null || (Array.isArray(data) && data.length === 0)) {
-      res.json({
-        code: "400",
-        data: {},
-        message: "请求数据失败"
-      })
-    } else {
-      res.json({
-        code: "200",
-        data: data,
-        message: "请求数据成功"
-      })
-    }
-  })
+  model.partnerStore.find()
+    .skip(param.pageSize * param.pageNumber)
+    .limit(param.pageSize)
+    .exec((err, data) => {
+      if (err || data === null || (Array.isArray(data) && data.length === 0)) {
+        res.json({
+          code: "400",
+          data: {},
+          message: "请求数据失败"
+        })
+      } else {
+        res.json({
+          code: "200",
+          data: data,
+          message: "请求数据成功"
+        })
+      }
+    })
 })
 
 module.exports = router

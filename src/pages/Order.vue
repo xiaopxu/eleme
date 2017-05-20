@@ -1,7 +1,11 @@
 <template>
     <div id="order">
-        <sidebar></sidebar>
-        <router-view></router-view>
+        <el-row class="tac">
+            <sidebar></sidebar>
+            <el-col :span="8">
+                <router-view></router-view>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
