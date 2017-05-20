@@ -1,6 +1,7 @@
 <template>
     <div id="index">
         <h1>首页</h1>
+        <StoreType @getStoreType="getStoreInfo"></StoreType>
         <div class="clear">
             <div v-for="list in lists">
                 <ShopSingle :list="list"></ShopSingle>
@@ -12,6 +13,7 @@
 </template>
 <script>
 import ShopSingle from "./../components/shopSingle"
+import StoreType from "./../components/storeType"
 import { Http } from "./../providers/http.js"
 let http = new Http()
 export default {
@@ -21,11 +23,15 @@ export default {
             pageSize: 12,
             pageNumber: 0,
             showMoreBtn: true,
-            lists: ''
+            // value5: 3.7,
+            lists: '',
+            listTypeId: '',
+            childTypeId: ''
         }
     },
     components: {
-        ShopSingle
+        ShopSingle,
+        StoreType
     },
     mounted() {
         let param = {
@@ -36,17 +42,25 @@ export default {
             }
         }
         http.post(param).then(res => {
-            this.lists = res
+            this.lists = res;
+            if (res.length < this.pageSize) {
+                this.showMoreBtn = false;
+            }
         })
     },
     methods: {
-        getStoreInfo() {
-            this.pageNumber++;
+        getStoreInfo(type) {
+            if (type) {
+                this.listTypeId = type.typeListId
+                this.childTypeId = type.childListId
+            }
             let param = {
                 url: 'api/getStoreInfo',
                 params: {
                     pageSize: this.pageSize,
-                    pageNumber: this.pageNumber
+                    pageNumber: this.pageNumber,
+                    listTypeId: this.listTypeId || '',
+                    childTypeId: this.childTypeId || ''
                 }
             }
             http.post(param).then(res => {
@@ -57,6 +71,10 @@ export default {
                     this.showMoreBtn = false;
                 }
             })
+        },
+        getNextPage() {
+            this.pageNumber++;
+            getStoreInfo({ listTypeId: this.listTypeId, childTypeId: this.childTypeId })
         }
     }
 }
