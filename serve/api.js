@@ -31,17 +31,17 @@ router.post('/api/login', (req, res) => {
           message: "用户名或密码错误"
         })
       }
-
     }
   })
 })
 
 router.post('/api/getStoreInfo', (req, res) => {
   let param = {
-    // storeId: req.body.storeId
+    pageSize: req.body.pageSize || 10,
+    pageNumber: req.body.pageNumber || 0
   }
-  model.partnerStore.find(param, (err, data) => {
-    console.log(data)
+
+  model.partnerStore.find().skip(pageSize * pageNumber).limit(param.pageSize).exec((err, data) => {
     if (err || data === null || (Array.isArray(data) && data.length === 0)) {
       res.json({
         code: "400",
