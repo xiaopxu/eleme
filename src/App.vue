@@ -32,6 +32,6 @@ export default {
 body {
   padding: 0;
   margin: 0;
-  min-width: 1000px;
+  min-width: 960px;
 }
 </style>
