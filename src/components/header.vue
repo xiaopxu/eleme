@@ -44,14 +44,6 @@ export default {
         }
     },
     mounted() {
-<<<<<<< HEAD
-        console.log('mounted')
-        let param = {
-            url: 'api/getStoreInfo',
-            params: {}
-        }
-        http.post(param).then(res => { })
-=======
         console.log("mounted")
         //请求用户数据
         // let param = {
@@ -75,7 +67,6 @@ export default {
         // http.post(param2)
         // .then(res => { })
         // .catch(err => { })
->>>>>>> 58712a806f618d0bb87b87ae5c32e5ea36c8b954
     },
     methods: {
         goPage(page) {
