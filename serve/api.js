@@ -41,7 +41,7 @@ router.post('/api/getStoreInfo', (req, res) => {
     pageNumber: req.body.pageNumber || 0
   }
 
-  model.partnerStore.find().skip(pageSize * pageNumber).limit(param.pageSize).exec((err, data) => {
+  model.partnerStore.find().skip(param.pageSize * param.pageNumber).limit(param.pageSize).exec((err, data) => {
     if (err || data === null || (Array.isArray(data) && data.length === 0)) {
       res.json({
         code: "400",
