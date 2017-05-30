@@ -1,13 +1,11 @@
 <template>
     <div id="sidebar">
-        <el-col :span="4">
-            <div v-for="list in sidebarList" class="sidebar-box">
-                <h2 :class="{canlink : list.path}" @click="goPage(list)">{{list.title}}</h2>
-                <div v-for="child in list.children">
-                    <a @click="goPage(child)" :class="{active : activeTabTitle == child.title}">{{child.title}}</a>
-                </div>
+        <div v-for="list in sidebarList" class="sidebar-box">
+            <h2 :class="{canlink : list.path}" @click="goPage(list)">{{list.title}}</h2>
+            <div v-for="child in list.children">
+                <a @click="goPage(child)" :class="{active : activeTabTitle == child.title}">{{child.title}}</a>
             </div>
-        </el-col>
+        </div>
     </div>
 </template>
 <script>
@@ -105,7 +103,8 @@ export default {
                 },
                 {
                     title: '我的收藏',
-                    icon: ''
+                    icon: '',
+                    path: 'order/favor'
                 }
             ]
         }
@@ -116,6 +115,7 @@ export default {
 @import url('./../../static/css/theme');
 #sidebar {
     padding-left: 50px;
+    padding-top: 20px;
     .canlink {
         cursor: pointer;
     }
