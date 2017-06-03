@@ -49,7 +49,7 @@ export default {
         }
     },
     mounted() {
-        this.getFavorShop('590ed684999546c36b1a45d5')
+        this.getFavorShop('5916c556ee1d9b37d83083a9')
     }
 }
 </script>

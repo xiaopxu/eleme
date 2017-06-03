@@ -1,13 +1,13 @@
 <template>
     <div id="index">
         <h1>首页</h1>
-        <StoreType @getStoreType="getStoreInfo"></StoreType>
+        <StoreType @sendStoreType="refreshStoreData"></StoreType>
         <div class="clear">
             <div v-for="list in lists">
-                <ShopSingle :list="list"></ShopSingle>
+                <ShopSingle :listShop="list"></ShopSingle>
             </div>
         </div>
-        <div class="moreBtn" v-if="showMoreBtn" @click="getStoreInfo">点击加载更多...</div>
+        <div class="moreBtn" v-if="showMoreBtn" @click="getNextPage">点击加载更多...</div>
     </div>
     </div>
 </template>
@@ -24,9 +24,9 @@ export default {
             pageNumber: 0,
             showMoreBtn: true,
             // value5: 3.7,
-            lists: '',
-            listTypeId: '',
-            childTypeId: ''
+            lists: [],  //门店数组，用于展示门店
+            storeType1: "0",
+            storeType2: "0"
         }
     },
     components: {
@@ -49,20 +49,39 @@ export default {
         })
     },
     methods: {
-        getStoreInfo(type) {
-            if (type) {
-                this.listTypeId = type.typeListId
-                this.childTypeId = type.childListId
+        refreshStoreData(storeData) {
+            this.lists = storeData.lists;
+            this.storeType1 = storeData.storeType1;
+            this.storeType2 = storeData.storeType2;
+            if (this.lists.length < this.pageSize) {
+                this.showMoreBtn = false;
+            } else {
+                this.showMoreBtn = true;
             }
-            let param = {
-                url: 'api/getStoreInfo',
-                params: {
-                    pageSize: this.pageSize,
-                    pageNumber: this.pageNumber,
-                    listTypeId: this.listTypeId || '',
-                    childTypeId: this.childTypeId || ''
+            this.pageNumber = 0;
+        },
+        getStoreInfo() {
+            let param = {}
+            if (this.storeType1 === "0" && this.storeType2 === "0") {
+                param = {
+                    url: 'api/getStoreInfo',
+                    params: {
+                        pageSize: this.pageSize,
+                        pageNumber: this.pageNumber
+                    }
+                }
+            } else {
+                param = {
+                    url: 'api/getStoreInfoByTypeId',
+                    params: {
+                        pageSize: this.pageSize,
+                        pageNumber: this.pageNumber,
+                        storeType1: this.storeType1,
+                        storeType2: this.storeType2
+                    }
                 }
             }
+
             http.post(param).then(res => {
                 res.forEach(item => {
                     this.lists.push(item);
@@ -74,7 +93,7 @@ export default {
         },
         getNextPage() {
             this.pageNumber++;
-            getStoreInfo({ listTypeId: this.listTypeId, childTypeId: this.childTypeId })
+            this.getStoreInfo()
         }
     }
 }

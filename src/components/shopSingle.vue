@@ -1,26 +1,26 @@
 <template>
     <div class="shopSingle">
         <div class="shopLogoBox">
-            <img :src="list.logo"></img>
-            <span>{{ list.avgArriveTime}} 分钟</span>
+            <img :src="listShop.logo"></img>
+            <span>{{ listShop.avgArriveTime}} 分钟</span>
         </div>
         <div class="shopData">
-            <h5>{{list.name}}
-                <span v-show="list.branch">({{list.branch}})</span>
+            <h5>{{listShop.name}}
+                <span v-show="listShop.branch">({{listShop.branch}})</span>
             </h5>
             <div class="shopNum">
-                <el-rate class="starNum" v-model="list.starValue" disabled allow-half text-color="#ff9900">
+                <el-rate class="starNum" v-model="listShop.starValue" disabled allow-half text-color="#ff9900">
                 </el-rate>
-                <span>{{ list.sellNum }}</span>月售
-                <i>{{ list.monthlySales }}</i>单</div>
+                <span>{{ listShop.sellNum }}</span>月售
+                <i>{{ listShop.monthlySales }}</i>单</div>
             <div class="shopDelivery">配送费￥
-                <i>{{ list.startdeliverPrice }}</i>
+                <i>{{ listShop.startdeliverPrice }}</i>
             </div>
             <div class="traitLable">
-                <i class="onTime" v-if="list.additionalServices.onTime === '1'">准</i>
-                <i class="newlyOpened" v-if="list.additionalServices.newlyOpened === '1'">新</i>
-                <i class="foodSecurity" v-if="list.additionalServices.foodSecurity === '1'">保</i>
-                <i class="invoice" v-if="list.additionalServices.invoice === '1'">票</i>
+                <i class="onTime" v-if="listShop.additionalServices.onTime === '1'">准</i>
+                <i class="newlyOpened" v-if="listShop.additionalServices.newlyOpened === '1'">新</i>
+                <i class="foodSecurity" v-if="listShop.additionalServices.foodSecurity === '1'">保</i>
+                <i class="invoice" v-if="listShop.additionalServices.invoice === '1'">票</i>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
 <script>
 export default {
     name: "shopSingle",
-    props: ["list"]
+    props: ["listShop"]
 }
 </script>
 
