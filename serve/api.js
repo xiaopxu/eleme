@@ -69,29 +69,44 @@ router.post('/api/getStoreInfoByTypeId', (req, res) => {
     pageSize: req.body.pageSize || 10,
     pageNumber: req.body.pageNumber || 0,
     storeType1: req.body.storeType1,
-    storeType2: req.body.storeType2,
+    storeType2: req.body.storeType2
+  }
+  let cb = (err, data) => {
+    if (err || data === null || (Array.isArray(data) && data.length === 0)) {
+      res.json({
+        code: "400",
+        data: {},
+        message: "请求数据失败"
+      })
+    } else {
+      res.json({
+        code: "200",
+        data: data,
+        message: "请求数据成功"
+      })
+    }
+  }
+  if (param.storeType1 !== "0" && param.storeType2 !== "0") {
+    model.partnerStore.find()
+      .where('storeType1').equals(param.storeType1)
+      .where('storeType2').equals(param.storeType2)
+      .skip(param.pageSize * param.pageNumber)
+      .limit(param.pageSize)
+      .exec(cb)
+  } else if (param.storeType1 === "0" && param.storeType2 !== "0") {
+    model.partnerStore.find()
+      .where('storeType2').equals(param.storeType2)
+      .skip(param.pageSize * param.pageNumber)
+      .limit(param.pageSize)
+      .exec(cb)
+  } else if (param.storeType1 !== "0" && param.storeType2 === "0") {
+    model.partnerStore.find()
+      .where('storeType1').equals(param.storeType1)
+      .skip(param.pageSize * param.pageNumber)
+      .limit(param.pageSize)
+      .exec(cb)
   }
 
-  model.partnerStore.find()
-    .where('storeType1').equals(param.storeType1)
-    .where('storeType2').equals(param.storeType2)
-    .skip(param.pageSize * param.pageNumber)
-    .limit(param.pageSize)
-    .exec((err, data) => {
-      if (err || data === null || (Array.isArray(data) && data.length === 0)) {
-        res.json({
-          code: "400",
-          data: {},
-          message: "请求数据失败"
-        })
-      } else {
-        res.json({
-          code: "200",
-          data: data,
-          message: "请求数据成功"
-        })
-      }
-    })
 })
 
 //获取收藏门店
