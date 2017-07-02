@@ -147,4 +147,45 @@ router.post('/api/getFavorShop', (req, res) => {
       }
     })
 })
+
+//获取门店菜单
+router.post('/api/getMenu', (req, res) => {
+  let param = {
+    storeId: mongoose.Types.ObjectId(req.body.storeId)
+  }
+  model.partnerStore.findOne()
+    .where('_id').equals(param.storeId)
+    .select('menu')
+    .exec((err, data) => {
+      if (err || data === null || (Array.isArray(data) && data.length === 0)) {
+        res.json({
+          code: "400",
+          data: {},
+          message: "请求数据失败"
+        })
+        return
+      }
+      model.storeMenu.find({
+        _id: {
+          $in: data._doc.menu
+        }
+      }).exec((err, data) => {
+        if (err || data === null || (Array.isArray(data) && data.length === 0)) {
+          res.json({
+            code: "400",
+            data: {},
+            message: "请求数据失败"
+          })
+          return
+        }
+        res.json({
+          code: "200",
+          data: data,
+          message: "请求数据成功"
+        })
+      })
+
+
+    })
+})
 module.exports = router
